@@ -46,3 +46,17 @@ def follow_directions(starting_point, starting_orientation, *directions):
        move = int(m.group('n'))
        point = (point[0] + x * move, point[1] + y * move) 
     return (point, orientation)
+
+
+def expand_path(starting_point, ending_point):
+    x1, y1 = starting_point
+    x2, y2 = ending_point
+    if x1 != x2 and y1 != y2:
+        raise ValueError('expand straight-line paths only')
+    if x1 != x2:
+        step = 1 if x1 <= x2 else -1
+        return [(x, y1) for x in range(x1, x2 + step, step)]
+    else:
+        step = 1 if y1 <= y2 else -1
+        return [(x1, y) for y in range(y1, y2 + step, step)]
+        
