@@ -35,6 +35,8 @@ class TestDirections(unittest.TestCase):
     def test_expand_path(self):
         assert expand_path((0, 0), (0, 3)) == [(0, 0), (0, 1), (0, 2), (0, 3)]
         assert expand_path((0, 0), (3, 0)) == [(0, 0), (1, 0), (2, 0), (3, 0)]
+        assert expand_path((0, 3), (0, 0)) == [(0, 3), (0, 2), (0, 1), (0, 0)]
+        assert expand_path((3, 0), (0, 0)) == [(3, 0), (2, 0), (1, 0), (0, 0)]
         with self.assertRaises(ValueError):
             expand_path((0, 0), (1, 1))
 
