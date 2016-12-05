@@ -19,9 +19,7 @@ def encode_moves(moves):
 
 
 def normalize_index(i):
-    """A number pad has three rows and three columns.
-    Ensure that an index into the number pad never
-    is less than 0 and never exceeds 2."""
+    """Ensure 0 <= i < 2."""
     return max(0, min(2, i))
 
 
@@ -50,3 +48,54 @@ def move(key, direction):
     elif direction == 'R':
         j += 1
     return number_pad[normalize_index(i)][normalize_index(j)]
+
+def alternate_move(key, direction):
+    """Given a key in 1-9, A-D and a direction
+    U, D, L, or R, return the next key in the
+    alternate character pad, stopping at the edges."""
+    character_pad = [[1],
+                     [2, 3, 4],
+                     [5, 6, 7, 8, 9],
+                     ['A', 'B', 'C'],
+                     ['D']]
+    if key not in list(range(1, 10)) + ['A', 'B', 'C', 'D']:
+        raise ValueError('key must be in 1-9 or A-D')
+    if direction not in ['U', 'D', 'L', 'R']:
+        raise ValueError('direction must be U, D, L, or R')
+    for i, row in enumerate(character_pad):
+        if key in row:
+            j = row.index(key)
+            max_j = len(row) - 1
+            break
+    if direction == 'U':
+        # only possible if i == j == 1
+        # or i == 2 and 1 <= j <= 3
+        # or i == 3 or i == 4
+        if i == j == 1:
+            i = 0
+            j = 0
+        elif i == 2 and 1 <= j <= 3:
+            i = 1
+            j -= 1
+        elif i in [3, 4]:
+            i -= 1
+            j += 1 
+    elif direction == 'D':
+        # only possible if i == j == 3
+        # or i == 2 and 1 <= j <= 3
+        # or i == 1 or i == 0
+        if i == j == 3:
+            i = 4
+            j = 0
+        elif i == 2 and i <= j <= 3:
+            i = 3
+            j -= 1
+        elif i in [0, 1]:
+            i += 1
+            j += 1
+    elif direction == 'L' and j > 0:
+        j -= 1
+    elif direction == 'R' and j < len(character_pad[i]) - 1:
+        j += 1
+    return character_pad[i][j]
+
