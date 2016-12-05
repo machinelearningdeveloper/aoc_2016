@@ -1,4 +1,5 @@
-from move import load_moves, encode_moves, normalize_index, move, alternate_move
+from move import (load_moves, encode_moves, normalize_index, move,
+                  encode_alternate_moves, alternate_move)
 import unittest
 
 class TestMove(unittest.TestCase):
@@ -25,6 +26,9 @@ class TestMove(unittest.TestCase):
         assert move(7, 'D') == 7
         assert move(2, 'R') == 3
         assert move(1, 'L') == 1
+
+    def test_encode_alternate_moves(self):
+        assert encode_alternate_moves(self.moves) == '5DB3'
 
     def test_alternate_move(self):
         assert alternate_move(5, 'U') == 5
