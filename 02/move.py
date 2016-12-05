@@ -80,13 +80,13 @@ def alternate_move(key, direction):
             i -= 1
             j += 1 
     elif direction == 'D':
-        # only possible if i == j == 3
+        # only possible if i == 3 and j == 1
         # or i == 2 and 1 <= j <= 3
         # or i == 1 or i == 0
         if i == 3 and j == 1:
             i = 4
             j = 0
-        elif i == 2 and i <= j <= 3:
+        elif i == 2 and 1 <= j <= 3:
             i = 3
             j -= 1
         elif i in [0, 1]:

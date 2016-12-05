@@ -32,8 +32,19 @@ class TestMove(unittest.TestCase):
         assert encode_moves(self.moves, use_alternate=True) == '5DB3'
 
     def test_alternate_move(self):
+        assert alternate_move(1, 'U') == 1
+        assert alternate_move(1, 'R') == 1
+        assert alternate_move(1, 'D') == 3
+        assert alternate_move(1, 'L') == 1
         assert alternate_move(5, 'U') == 5
+        assert alternate_move(5, 'R') == 6
+        assert alternate_move(5, 'D') == 5
         assert alternate_move(5, 'L') == 5
-        assert alternate_move(7, 'D') == 'B'
+        assert alternate_move(9, 'U') == 9
+        assert alternate_move(9, 'R') == 9
+        assert alternate_move(9, 'D') == 9
+        assert alternate_move(9, 'L') == 8
+        assert alternate_move('D', 'U') == 'B'
+        assert alternate_move('D', 'R') == 'D'
         assert alternate_move('D', 'D') == 'D'
-        assert alternate_move('B', 'D') == 'D'
+        assert alternate_move('D', 'L') == 'D'
