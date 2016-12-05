@@ -1,7 +1,16 @@
-from move import normalize_index, move
+from move import load_moves, encode_moves, normalize_index, move
 import unittest
 
 class TestMove(unittest.TestCase):
+    def setUp(self):
+        self.moves = ['ULL', 'RRDDD', 'LURDL', 'UUUUD']    
+
+    def test_load_moves(self):
+        assert load_moves('example.txt') == self.moves
+
+    def test_encode_moves(self):
+        assert encode_moves(self.moves) == '1985'
+
     def test_normalize_index(self):
         assert normalize_index(3) == 2
         assert normalize_index(2) == 2
@@ -15,3 +24,4 @@ class TestMove(unittest.TestCase):
         assert move(7, 'L') == 7
         assert move(7, 'D') == 7
         assert move(2, 'R') == 3
+        assert move(1, 'L') == 1
