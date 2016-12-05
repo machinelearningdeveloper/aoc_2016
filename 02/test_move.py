@@ -1,4 +1,4 @@
-from move import load_moves, encode_moves, normalize_index, move
+from move import load_moves, encode_moves, normalize_index, move, alternate_move
 import unittest
 
 class TestMove(unittest.TestCase):
