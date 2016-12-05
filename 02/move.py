@@ -5,10 +5,12 @@ def load_moves(filename):
         return [line.strip() for line in f if line.strip()]
 
 
-def encode_moves(moves):
+def encode_moves(moves, use_alternate=False):
     """For each move in moves, find the corresponding
     key on the number pad, stringify the key, and append
     to the code."""
+    if use_alternate:
+        move = alternate_move
     code = ''
     key = 5
     for move_sequence in moves:
@@ -16,7 +18,6 @@ def encode_moves(moves):
             key = move(key, direction)
         code += str(key)
     return code
-
 
 def normalize_index(i):
     """Ensure 0 <= i < 2."""
