@@ -1,3 +1,23 @@
+def load_moves(filename):
+    """Load a list of moves from a file,
+    ignoring whitespace."""
+    with open(filename) as f:
+        return [line.strip() for line in f if line.strip()]
+
+
+def encode_moves(moves):
+    """For each move in moves, find the corresponding
+    key on the number pad, stringify the key, and append
+    to the code."""
+    code = ''
+    key = 5
+    for move_sequence in moves:
+        for direction in move_sequence:
+            key = move(key, direction)
+        code += str(key)
+    return code
+
+
 def normalize_index(i):
     """A number pad has three rows and three columns.
     Ensure that an index into the number pad never
@@ -18,8 +38,8 @@ def move(key, direction):
     if direction not in ['U', 'D', 'L', 'R']:
         raise ValueError('direction must be U, D, L, or R')
     for i, row in enumerate(number_pad):
-        j = key in row and row.index(key)
-        if j != False:
+        if key in row:
+            j = row.index(key)
             break
     if direction == 'U':
         i -= 1
