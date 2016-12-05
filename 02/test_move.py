@@ -17,9 +17,6 @@ class TestMove(unittest.TestCase):
         assert normalize_index(1) == 1
         assert normalize_index(0) == 0
         assert normalize_index(-1) == 0
-        assert normalize_index(2, 1) == 0
-        assert normalize_index(5, 2) == 1
-        assert normalize_index(-1, 4) == 0
 
     def test_move(self):
         assert move(5, 'U') == 2
