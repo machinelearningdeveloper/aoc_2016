@@ -36,3 +36,4 @@ class TestMove(unittest.TestCase):
         assert alternate_move(5, 'L') == 5
         assert alternate_move(7, 'D') == 'B'
         assert alternate_move('D', 'D') == 'D'
+        assert alternate_move('B', 'D') == 'D'

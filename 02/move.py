@@ -9,13 +9,11 @@ def encode_moves(moves, use_alternate=False):
     """For each move in moves, find the corresponding
     key on the number pad, stringify the key, and append
     to the code."""
-    if use_alternate:
-        move = alternate_move
     code = ''
     key = 5
     for move_sequence in moves:
         for direction in move_sequence:
-            key = move(key, direction)
+            key = move(key, direction) if not use_alternate else alternate_move(key, direction)
         code += str(key)
     return code
 
@@ -85,7 +83,7 @@ def alternate_move(key, direction):
         # only possible if i == j == 3
         # or i == 2 and 1 <= j <= 3
         # or i == 1 or i == 0
-        if i == j == 3:
+        if i == 3 and j == 1:
             i = 4
             j = 0
         elif i == 2 and i <= j <= 3:
