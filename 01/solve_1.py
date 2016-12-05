@@ -1,5 +1,5 @@
 """Report the manhattan distance between a starting point and an ending point,
-given a set of directions to follow to get move between the two points."""
+given a set of directions to follow to move between the two points."""
 
 
 from distance import get_distance
