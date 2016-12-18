@@ -37,7 +37,7 @@ def create_checksum(room):
     for letter in name:
         count, _ = counts.setdefault(letter, (0, letter))
         counts[letter] = (count - 1, letter)
-    return ''.join(sorted(sorted(counts, key=counts.get)[:5]))
+    return ''.join(sorted(counts, key=counts.get)[:5])
 
 
 def extract_sector_id(room):
@@ -76,3 +76,22 @@ def sum_sector_ids(rooms):
     return sum([int(extract_sector_id(room))
                 for room in rooms
                 if is_valid_checksum(room)])
+
+
+def load_room_identifiers():
+    """Return a list of room identifiers,
+    loaded from a text file named rooms.txt."""
+
+
+def main():
+    """Load a list of room identifiers from text file
+    and calculate the sum of the sector ids for the
+    valid room identifiers."""
+    with open('rooms.txt') as f:
+        rooms = [room.strip() for room in f.readlines()]
+    print(sum_sector_ids(rooms))
+
+
+if __name__ == '__main__':
+    main()
+    
