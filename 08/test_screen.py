@@ -1,9 +1,9 @@
 import unittest
 
-from screen import (explode, implode, load_instructions,
-                    parse_command, rect, redraw_screen,
-                    rotate, rotate_column, rotate_row,
-                    transpose)
+from screen import (explode, implode, initialize_screen,
+                    load_instructions, parse_command, rect,
+                    redraw_screen, rotate, rotate_column,
+                    rotate_row, transpose)
 
 
 class TestScreen(unittest.TestCase):
@@ -29,6 +29,9 @@ class TestScreen(unittest.TestCase):
                              ['.', '.', '.'],
                              ['.', '.', '.'],
                              ['.', '.', '.']]
+
+    def test_initialize_screen(self):
+        assert initialize_screen(3, 2) == '...\n...'
 
     def test_load_instructions(self):
         assert len(load_instructions())
