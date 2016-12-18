@@ -1,4 +1,5 @@
 import re
+import string
 
 
 def extract_checksum(room):
@@ -68,7 +69,7 @@ def is_valid_checksum(room):
 def sum_sector_ids(rooms):
     """Given a list of room identifiers of the form:
 
-    'aaa-bb-cc-d-e-123[abcde]'
+        'aaa-bb-cc-d-e-123[abcde]'
 
     Return the sum of the sector ids.  In this example
     the sector id is '123'.
@@ -78,6 +79,28 @@ def sum_sector_ids(rooms):
                 if is_valid_checksum(room)])
 
 
-def load_room_identifiers():
+def load_rooms():
     """Return a list of room identifiers,
     loaded from a text file named rooms.txt."""
+    with open('rooms.txt') as rooms:
+        return [room.strip() for room in rooms.readlines()]
+
+def decrypt(room):
+    """Given a room identifier of the form:
+
+        'aaa-bb-cc-d-e-123[abcde]'
+
+    Return the part 'aaa-bb-cc-d-e' with spaces instead
+    of dashes and with each letter shifted 123 times.
+    """
+    alphabet = string.ascii_lowercase
+    shift = int(extract_sector_id(room))
+    name = re.sub(r'-\d+.+$', '', room)
+    decrypted = []
+    for char in name:
+        if char in alphabet:
+            i = (alphabet.index(char) + shift) % len(alphabet)
+            decrypted.append(alphabet[i])
+        else:
+            decrypted.append(' ') 
+    return ''.join(decrypted)
