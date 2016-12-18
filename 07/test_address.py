@@ -22,6 +22,12 @@ class TestAddress(unittest.TestCase):
         assert is_compatible('xyx[xyx]xyx', protocol=2) == False
         assert is_compatible('aaa[kek]eke', protocol=2) == True
         assert is_compatible('zazbz[bzb]cdb', protocol=2) == True
+        long_address = ('xondkuknycfwyenkceu'
+                        '[ugjlxueqtcyhyhni]'
+                        'bbofydvkhtjgxxnyrc'
+                        '[gpnwoarvjltzyhhe]'
+                        'qebolgjnwnstokco')
+        assert is_compatible(long_address, protocol=2) == False
         
     def test_load_addresses(self):
         assert len(load_addresses())
