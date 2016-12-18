@@ -1,7 +1,9 @@
 import unittest
 
-from screen import (explode, load_instructions,
-                    redraw_screen, rotate, transpose)
+from screen import (explode, implode, load_instructions,
+                    parse_command, rect, redraw_screen,
+                    rotate, rotate_column, rotate_row,
+                    transpose)
 
 
 class TestScreen(unittest.TestCase):
@@ -41,14 +43,36 @@ class TestScreen(unittest.TestCase):
         assert redraw_screen(self.screen_d, self.instructions['d_to_e']) \
                    == self.screen_e
 
+    def test_rotate_column(self):
+        assert rotate_column(self.screen_b, 1, 1) \
+                   == self.screen_c
+
+    def test_rotate_row(self):
+        assert rotate_row(self.screen_c, 0, 4) \
+                   == self.screen_d
+
     def test_rotate(self):
-        assert rotate(['#', '.', '.', '.', '.', '.' '.'], 4) \
-                   == ['.', '.', '.', '.', '#', '.' '.']
-        assert rotate(['.', '.', '.', '.', '#', '.' '.'], 4) \
-                   == ['.', '#', '.', '.', '.', '.' '.']
+        assert rotate(['#', '.', '.', '.', '.', '.', '.'], 4) \
+                   == ['.', '.', '.', '.', '#', '.', '.']
+        assert rotate(['.', '.', '.', '.', '#', '.', '.'], 4) \
+                   == ['.', '#', '.', '.', '.', '.', '.']
 
     def test_explode(self):
         assert explode(self.screen_b) == self.exploded_b
 
     def test_transpose(self):
         assert transpose(self.exploded_b) == self.transposed_b
+
+    def test_implode(self):
+        assert implode(self.exploded_b) == self.screen_b
+
+    def test_parse_command(self):
+        assert parse_command(self.instructions['a_to_b']) \
+                   == (rect, 3, 2)
+        assert parse_command(self.instructions['b_to_c']) \
+                   == (rotate_column, 1, 1)
+        assert parse_command(self.instructions['c_to_d']) \
+                   == (rotate_row, 0, 4)
+
+    def test_rect(self):
+        assert rect(self.screen_a, 3, 2) == self.screen_b
