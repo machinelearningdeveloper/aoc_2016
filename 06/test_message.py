@@ -14,6 +14,7 @@ class TestMessage(unittest.TestCase):
 
     def test_recover_message(self):
         assert recover_message(self.messages) == 'easter'
+        assert recover_message(self.messages, least_frequent=True) == 'advent'
 
 
     def test_load_messages(self):

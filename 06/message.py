@@ -1,11 +1,13 @@
 from collections import Counter
 
-def recover_message(messages):
+def recover_message(messages, least_frequent=False):
     """For each position in the recovered message,
-    find the most-frequently-occurring character
-    in the same position in the set of raw messages.
+    find the most- (least-) frequently-occurring
+    character in the same position in the set of
+    raw messages.
     """
-    return ''.join([Counter(seq).most_common(1)[0][0]
+    i = len(messages) if least_frequent else 1
+    return ''.join([Counter(seq).most_common(i)[-1][0]
                     for seq in zip(*messages)])
 
 
