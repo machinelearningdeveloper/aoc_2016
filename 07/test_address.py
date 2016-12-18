@@ -1,9 +1,14 @@
 import unittest
 
-from address import has_reflection, is_compatible, load_addresses
+from address import (extract_protocol_patterns, has_reflection,
+                     is_compatible, load_addresses)
 
 
 class TestAddress(unittest.TestCase):
+    def extract_protocol_patterns(self):
+        assert extract_protocol_patterns(['aaabacaded']) == \
+               ['aba', 'aca', 'ded']
+
     def test_has_reflection(self):
         assert has_reflection(['mnop']) == False
         assert has_reflection(['abba', 'qrst']) == True
