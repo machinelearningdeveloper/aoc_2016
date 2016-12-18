@@ -2,11 +2,9 @@ from find_password import find_password
 
 
 def main():
-    """Print the eight-character password seeded
-    by the given door id.
-    """
+    """Find a password given a seed."""
     door_id = 'ffykfhsq'
-    print(find_password(door_id))
+    print(find_password(door_id, complex=True))
 
 
 if __name__ == '__main__':
